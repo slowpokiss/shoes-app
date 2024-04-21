@@ -1,0 +1,183 @@
+* {
+  /* padding: 0;
+  margin: 0; */
+  box-sizing: border-box;
+}
+
+
+
+
+/* Navigation */
+.navbar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.text-center {
+  text-align: center;
+}
+
+a.active {
+  color: red;
+}
+
+
+.navbar-collapse {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  gap: 15px;
+}
+
+
+/* Main */
+.banner {
+  position: relative;
+}
+
+.img-fluid {
+  width: 100%;
+}
+
+.banner-header {
+  display: block;
+  position: absolute;
+  top: 15%;
+  right: 0;
+}
+
+/* Top sales! */
+.top-sales-cards {
+  display: flex;
+  flex-direction: row;
+  padding: 0 50px 50px 25px;
+  gap: 15px;
+}
+
+.card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 4px;
+  padding: 25px;
+  justify-content: space-between;
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.card-image {
+  width: inherit;
+  height: auto;
+}
+
+.btn-template {
+  width: fit-content;
+  cursor: pointer;
+  border: 1px solid grey;
+  color: grey;
+  text-decoration: none;
+  padding: 7px;
+  border-radius: 4px;
+  transition: 0.2s all;
+}
+
+.btn-template:hover { 
+  background: rgb(150, 150, 150);
+  color: white;
+}
+
+.btn-template:active {
+  background: rgb(150, 150, 150);
+} 
+
+
+/* Catalog */
+.catalog-params {
+  margin-bottom: 35px;
+}
+
+.catalog-params-list {
+  width: fit-content;
+  padding: 0;
+  margin: 0 auto;
+  list-style-type: none;
+  display: flex;   
+  flex-direction: row;
+  gap: 15px;
+}
+
+.catalog-param {
+  cursor: pointer;
+  color: #727e86;
+}
+
+.catalog-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  padding: 0 50px 25px 25px;
+  gap: 15px;
+}
+
+.btn-loadMore {
+  margin: 0 auto;
+}
+
+.catalog-param-active {
+  color: red;
+}
+
+
+/* Footer */
+footer {
+  background-color: #ededed;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  gap: 15px;
+}
+
+.footer-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
+}
+
+.footer-item-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.footer-container-item {
+  width: fit-content;
+  justify-content: start;
+}
+
+div.footer-payment {
+  width: 400px;
+}
+
+.footer-contacts > section {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}

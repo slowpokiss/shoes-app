@@ -23,8 +23,6 @@ section {
 }
 
 
-
-
 /* Common Styles */
 .invisible {
   opacity: 0;
@@ -218,8 +216,8 @@ section {
 
 .footer-pay {
   display: flex;
-  justify-content: space-between;
   margin: 12px auto 0;
+  gap: 15px;
 }
 .footer-pay-systems {
   width: 46px;
@@ -287,10 +285,6 @@ section {
 }
 
 /* Bootstrap */
-.nav-link.active {
-  color: #ff0000;
-}
-
 h2, .h2 {
   margin-bottom: 1.5em;
   margin-top: 2em;
