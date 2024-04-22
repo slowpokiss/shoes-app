@@ -23,6 +23,7 @@ const SalesConstructor = () => {
           return (
             <Card
               key={el.id}
+              id={el.id}
               images={el.images}
               title={el.title}
               price={el.price}

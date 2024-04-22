@@ -1,0 +1,90 @@
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.single-card-main {
+  display: flex;
+  width: 100%;
+}
+
+.single-card-title {
+  text-align: center;
+}
+
+
+.single-card-img {
+  width: 35%;
+  height: auto;
+}
+
+.single-card-info {
+  display: flex;
+  width: 65%;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.single-card-info-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 750px;
+  border: 1px solid gray;
+  height: fit-content;
+}
+
+.info-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.info {
+  padding: 20px;
+  border-bottom: 1px solid gray;
+}
+
+.info:last-child {
+  border-bottom: 0
+}
+
+.info-right {
+  border-left: 1px solid gray;
+}
+
+.add-to-cart {
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+  background-color: #de6969;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 4px;
+  transition: 0.2s all;
+}
+
+.add-to-cart {
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+  background-color: #de6969;
+  text-decoration: none;
+  padding: 12px;
+  border-radius: 4px;
+  transition: 0.2s all;
+}
+
+.add-to-cart:hover { 
+  background-color: #df9090;
+}
+
+.add-to-cart:active {
+  background-color: #df9090;
+} 

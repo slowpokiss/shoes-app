@@ -2,7 +2,7 @@ import { Await, useLoaderData, useAsyncValue } from "react-router-dom"
 import { Suspense } from "react";
 import Loader from "../components/Loader";
 import { singleCardInterface } from "../interface/interface";
-
+import '../../css/SingleCard.css'
 
 async function getSingleCard(id: number) {
   const response = await fetch(`http://localhost:7070/api/items/${id}`);
@@ -16,18 +16,48 @@ export const oneCardLoader = async ({params}: any) => {
 }
 
 const OneCardConstructor = () => {
-  const oneCard = useAsyncValue();
-
+  const oneCard: singleCardInterface = useAsyncValue();
+  let filteredSizes = oneCard.sizes.filter(item => item.available).map(size => size.size);
 
   return (
-    <></>
+    <>
+      <div className="single-card">
+        <h1 className="single-card-title">{oneCard.title}</h1>
+        <div className="single-card-main">
+          <img className="single-card-img" src={oneCard.images[0]} alt={oneCard.title} />
+          <div className="single-card-info">
+            <div className="single-card-info-wrapper">
+              <ul className="info-wrapper info-left">
+                <li className="info">Артикул</li>
+                <li className="info">Производитель</li>
+                <li className="info">Цвет</li>
+                <li className="info">Материалы</li>
+                <li className="info">Сезон</li>
+                <li className="info">Повод</li>
+              </ul>
+              <ul className="info-wrapper info-right">
+                <li className="info">{oneCard.sku}</li>
+                <li className="info">{oneCard.manufacturer}</li>
+                <li className="info">{oneCard.color}</li>
+                <li className="info">{oneCard.material}</li>
+                <li className="info">{oneCard.season}</li>
+                <li className="info">{oneCard.reason}</li>
+              </ul>
+            </div>
+            <div className="single-card-sizes">
+              Размеры в наличии: {[...filteredSizes]}
+            </div>
+            <div className="single-card-count">Количество:</div>
+            <div className="add-to-cart">В корзину</div>
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
 
 export default function SingleCard() {
   const { oneCard } = useLoaderData();
-
-
   return (
     <>
       <main className="container">
