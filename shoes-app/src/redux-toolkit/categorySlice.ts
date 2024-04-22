@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface initialStateInterface {
-  currCategory: string;
+  currCategory: number;
 }
 
 
 const categorySlice = createSlice({
   name: "categorySlice",
   initialState: {
-    currCategory: "Все",
+    currCategory: 10,
   } satisfies initialStateInterface as initialStateInterface,
   reducers: {
     setCategory(state, action) {

@@ -1,25 +1,15 @@
 import "../../css/MainPage.css";
 import { useLoaderData, Await, useAsyncValue } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Loader from "../components/Loader";
 import Card from "../components/Card";
-import { setCategory } from "../redux-toolkit/categorySlice";
 import { cardInterface } from "../interface/interface";
-import { categoryInterface } from "../interface/interface";
+import { getCategoryItems, CategoryConstructor } from "../loaders/categoryLoader";
+import { ItemsConstructor, getItems } from "../loaders/itemsLoader";
 
 async function getTopSales() {
   const response = await fetch("http://localhost:7070/api/top-sales");
-  return response.json();
-}
-
-async function getItems() {
-  const response = await fetch("http://localhost:7070/api/items");
-  return response.json();
-}
-
-async function getCategoryItems() {
-  const response = await fetch("http://localhost:7070/api/categories");
   return response.json();
 }
 
@@ -44,79 +34,33 @@ const SalesConstructor = () => {
   );
 };
 
-const ItemsConstructor = () => {
-  const items = useAsyncValue();
-  return (
-    <>
-      <div className="catalog-items">
-        {items.map((el: cardInterface) => {
-          return (
-            <Card
-              key={el.id}
-              images={el.images}
-              title={el.title}
-              price={el.price}
-            />
-          );
-        })}
-      </div>
-    </>
-  );
-};
-
-const CategoryConstructor = () => {
-  const dispatch = useDispatch();
-  const category = useSelector((state: unknown) => state.category.currCategory);
-  const categoryItems = useAsyncValue();
-
-  const setCategoryCB = (settingCategory: string) => {
-    dispatch(setCategory({ settingCategory }));
-  };
-
-  return (
-    <ul className="catalog-params-list">
-      <li
-        className={
-          category === "Все"
-            ? "catalog-param catalog-param-active"
-            : "catalog-param"
-        }
-        onClick={() => {
-          setCategoryCB("Все");
-        }}
-      >
-        Все
-      </li>
-      {categoryItems.map((el: categoryInterface) => {
-        return (
-          <li
-            className={
-              category === el.title
-                ? "catalog-param catalog-param-active"
-                : "catalog-param"
-            }
-            onClick={() => {
-              setCategoryCB(el.title);
-            }}
-            key={el.id}
-          >
-            {el.title}
-          </li>
-        );
-      })}
-    </ul>
-  );
-};
 
 export const postLoader = async () => {
   let sales = getTopSales();
-  let catalog = getItems();
+  let catalog = getItems(10);
   let category = getCategoryItems();
   return { sales, catalog, category };
 };
 
+const loadMore = async (id: number) => {
+  console.log(id);
+
+  let path;
+  id === 10
+    ? (path = `http://localhost:7070/api/items?offset=6`)
+    : (path = ` http://localhost:7070/api/items?categoryId=${id}&offset=6`);
+
+  const response = await fetch(path);
+  return await response.json(); 
+};
+
 export default function MainPage() {
+  //const [loading, setLoading] = useState()
+  
   const { sales, catalog, category } = useLoaderData();
+  const currCategory = useSelector(
+    (state: unknown) => state.category.currCategory
+  );
 
   return (
     <>
@@ -150,30 +94,21 @@ export default function MainPage() {
               </div>
               <Suspense fallback={<Loader />}>
                 <Await resolve={catalog}>
-                  <ItemsConstructor />
+                  <ItemsConstructor path={currCategory} />
                 </Await>
               </Suspense>
-              <div className="btn-loadMore btn-template">Загрузить ещё</div>
+
+              
+              <div
+                className="btn-loadMore btn-template"
+                onClick={() => loadMore(currCategory)}
+              >
+                Загрузить ещё
+              </div>
             </section>
           </div>
         </div>
       </main>
     </>
   );
-}
-
-
-
-
-
-{
-  /* <script>
-// TODO: replace it with React!
-const searchEl = document.querySelector('[data-id=search-expander]');
-const searchFormEl = document.querySelector('[data-id=search-form]');
-searchEl.addEventListener('click', () => {
-    searchFormEl.classNameList.toggle('invisible');
-    searchFormEl.querySelector('input').focus();
-});
-</script> */
 }
