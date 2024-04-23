@@ -14,14 +14,41 @@ ul {
 }
 
 
-.single-card-img {
-  width: 35%;
+.single-card-img-container {
+  width: 45%;
+  display: flex;
+  justify-content: center;
+  align-items: start;
   height: auto;
+}
+
+.single-card-img {
+  width: 85%;
+  height: auto;
+}
+
+.single-card-sizes {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.size {
+  width: fit-content;
+  padding: 7px;
+  cursor: pointer;
+  border: none;
+}
+
+.current-size {
+  border: 1px solid grey;
+  border-radius: 10px;
 }
 
 .single-card-info {
   display: flex;
-  width: 65%;
+  width: 55%;
   justify-content: center;
   flex-direction: column;
   gap: 15px;
