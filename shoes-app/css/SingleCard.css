@@ -84,6 +84,37 @@ ul {
   border-left: 1px solid gray;
 }
 
+.single-card-counter {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  flex-direction: row;
+}
+
+.counter {
+  display: flex;
+  width: 17%;
+  height: auto;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid rgb(110, 110, 110);
+  border-radius: 5px;
+}     
+
+.counter-operation {
+  width: 30%;
+  height: auto;
+  background-color: rgb(110, 110, 110);
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  padding: 5px 0;
+}
+
 .add-to-cart {
   width: 100%;
   text-align: center;
