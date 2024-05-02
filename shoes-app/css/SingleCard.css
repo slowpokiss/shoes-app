@@ -4,6 +4,10 @@ ul {
   margin: 0;
 }
 
+input {
+  border: none;
+}
+
 .single-card-main {
   display: flex;
   width: 100%;
@@ -30,20 +34,9 @@ ul {
 .single-card-sizes {
   display: flex;
   flex-direction: row;
+  align-self: center;
   align-items: center;
   gap: 10px;
-}
-
-.size {
-  width: fit-content;
-  padding: 7px;
-  cursor: pointer;
-  border: none;
-}
-
-.current-size {
-  border: 1px solid grey;
-  border-radius: 10px;
 }
 
 .single-card-info {
@@ -115,6 +108,46 @@ ul {
   padding: 5px 0;
 }
 
+.add-to-cart-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+
+.size {
+  position: relative;
+  width: fit-content;
+  padding: 7px 11px;
+  cursor: pointer;
+  border: none;
+}
+
+.current-size {
+  color: white;
+  background-color: rgb(110, 110, 110);
+  border-radius: 15px;
+}
+
+.cart-checkbox {
+  position: absolute;
+  opacity: 0;
+}
+
+.checkbox-custom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  background-color: transparent;
+}
+
+
+
+
 .add-to-cart {
   width: 100%;
   text-align: center;
@@ -125,6 +158,7 @@ ul {
   padding: 10px;
   border-radius: 4px;
   transition: 0.2s all;
+  font-size: inherit;
 }
 
 .add-to-cart {

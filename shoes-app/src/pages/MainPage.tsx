@@ -1,7 +1,7 @@
 import "../../css/MainPage.css";
 import { useLoaderData, Await, useAsyncValue } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Suspense, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Suspense } from "react";
 import Loader from "../components/Loader";
 import Card from "../components/Card";
 import { cardInterface } from "../interface/interface";

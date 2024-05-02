@@ -12,6 +12,7 @@ import About from "./pages/About";
 import Contacts from "./pages/Contacts";
 import ErrorPage from "./pages/ErrorPage";
 import SingleCard from "./pages/SingleCard";
+import Cart from "./pages/Cart";
 import { postLoader } from "./pages/MainPage";
 import { oneCardLoader } from "./pages/SingleCard";
 
@@ -25,6 +26,7 @@ const routerProv = createBrowserRouter(
           <Route path="*" element={<ErrorPage />}></Route>
           <Route path="/about" element={<About />}></Route>
           <Route path="/contacts" element={<Contacts />}></Route>
+          <Route path="/cart" element={<Cart />}></Route>
       </Route>
     </>
   )

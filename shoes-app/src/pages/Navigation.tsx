@@ -1,7 +1,16 @@
 import { Link, NavLink, Outlet } from "react-router-dom"
+import { useSelector } from "react-redux";
 
+const scrollTop = () => window.scrollTo({
+  top: 0,
+  behavior: 'smooth'
+})
 
 export default function Navigation() {
+  const currCartCount = useSelector(
+    (state: unknown) => state.cartSlice.cartCount
+  );
+
   return (
     <>
     <header className="container">
@@ -29,10 +38,10 @@ export default function Navigation() {
               <div>
                 <div className="header-controls-pics">
                   <div data-id="search-expander" className="header-controls-pic header-controls-search"></div>
-                  <div className="header-controls-pic header-controls-cart">
-                    <div className="header-controls-cart-full">1</div>
+                  <Link to={'/cart'} className="header-controls-pic header-controls-cart">
+                    <div className="header-controls-cart-full">{currCartCount}</div>
                     <div className="header-controls-cart-menu"></div>
-                  </div>
+                  </Link>
                 </div>
                 <form data-id="search-form" className="header-controls-search-form form-inline invisible">
                   <input className="form-control" placeholder="Поиск" />
@@ -52,9 +61,9 @@ export default function Navigation() {
           <section>
             <p className='footer-item-title'>Информация</p>
             <ul className="nav flex-column">
-              <Link to='/about' className="nav-item">О магазине</Link>
-              <Link to='/catalog' className="nav-item">Каталог</Link>
-              <Link to='/contacts' className="nav-item">Контакты</Link>
+              <Link to='/about' onClick={scrollTop} className="nav-item">О магазине</Link>
+              <Link to='/catalog' onClick={scrollTop} className="nav-item">Каталог</Link>
+              <Link to='/contacts' onClick={scrollTop} className="nav-item">Контакты</Link>
             </ul>
           </section>
         </div>
@@ -72,6 +81,7 @@ export default function Navigation() {
           </section>
           <section>
             <div className="footer-copyright">2009-2019 © BosaNoga.ru — модный интернет-магазин обуви и аксессуаров.
+              <br />
               Все права защищены.Доставка по всей России!
             </div>
           </section>

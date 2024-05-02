@@ -1,9 +1,11 @@
 import { Await, useLoaderData, useAsyncValue } from "react-router-dom";
-import { Suspense } from "react";
+import { FormEvent, Suspense } from "react";
 import Loader from "../components/Loader";
 import { singleCardInterface } from "../interface/interface";
 import "../../css/SingleCard.css";
 import { useState } from "react";
+import { updateCart } from "../redux-toolkit/cartSlice";
+import { useDispatch } from "react-redux";
 
 async function getSingleCard(id: number) {
   const response = await fetch(`http://localhost:7070/api/items/${id}`);
@@ -16,37 +18,25 @@ export const oneCardLoader = async ({ params }: any) => {
   return { oneCard };
 };
 
-const SingleCardCounter = () => {
-  let [count, setCount] = useState(1);
 
 
-  return (
-    <>
-      <div className="counter">
-        <div
-          className="counter-operation counter-subtract"
-          onClick={() => setCount(count - (count === 0 ? 0 : 1))}
-        >
-          -
-        </div>
-        <div className="counter-number">{count}</div>
-        <div
-          className="counter-operation counter-add"
-          onClick={() => setCount(count + 1)}
-        >
-          +
-        </div>
-      </div>
-    </>
-  );
-};
 
 const OneCardConstructor = () => {
+  const dispatch = useDispatch();
   const oneCard: singleCardInterface = useAsyncValue();
   let filteredSizes = oneCard.sizes
     .filter((item) => item.available)
     .map((size) => size.size);
   const [size, setSize] = useState("");
+  let [count, setCount] = useState(1);
+
+  const onAddToCart = (ev: FormEvent) => {
+    ev.preventDefault();
+    const price = oneCard.price
+    const name = oneCard.title
+    dispatch(updateCart({name, price, count, size}))
+  };
+
 
   return (
     <>
@@ -80,24 +70,59 @@ const OneCardConstructor = () => {
                 <li className="info">{oneCard.reason}</li>
               </ul>
             </div>
-            <div className="single-card-sizes">
-              Размеры в наличии:{" "}
-              {filteredSizes.map((el: string) => {
-                return (
-                  <div
-                    className={el === size ? "size current-size" : "size"}
-                    key={oneCard.id}
-                    onClick={() => setSize(el)}
-                  >
-                    {el}
+
+            <form
+              className="add-to-cart-form"
+              style={{ width: "100%" }}
+              onSubmit={onAddToCart}
+            >
+              <div className="single-card-sizes">
+                Размеры в наличии:
+                {filteredSizes.map((el: string) => {
+                  return (
+                    <label
+                      className={el === size ? "size current-size" : "size"}
+                      key={oneCard.id}
+                    >
+                      <input
+                        type="checkbox"
+                        className={"cart-checkbox"}
+                        key={oneCard.id}
+                        onClick={() => setSize(el === size ? "": el)}
+                        required
+                      />
+                      <span className="checkbox-custom"></span>
+                      {el}
+                    </label>
+                  );
+                })}
+              </div>
+              <div className="single-card-counter">
+                Количество:
+                {
+                  <div className="counter">
+                    <div
+                      className="counter-operation counter-subtract"
+                      onClick={() => setCount(count - (count === 1 ? 0 : 1))}
+                    >
+                      -
+                    </div>
+                    <div className="counter-number">{count}</div>
+                    <div
+                      className="counter-operation counter-add"
+                      onClick={() => setCount(count + 1)}
+                    >
+                      +
+                    </div>
                   </div>
-                );
-              })}
-            </div>
-            <div className="single-card-counter">
-              Количество: {<SingleCardCounter />}
-            </div>
-            <div className="add-to-cart">В корзину</div>
+                }
+              </div>
+              <input
+                type="submit"
+                className="add-to-cart"
+                value={"В корзину"}
+              />
+            </form>
           </div>
         </div>
       </div>

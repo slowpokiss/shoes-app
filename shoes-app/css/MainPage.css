@@ -4,7 +4,21 @@
   box-sizing: border-box;
 }
 
+.text-right {
+  text-align: right;
+}
 
+.form-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: #000000; 
+}
 
 
 /* Navigation */
@@ -84,6 +98,8 @@ a.active {
   height: auto;
 }
 
+
+
 .btn-template {
   width: fit-content;
   cursor: pointer;
@@ -93,6 +109,13 @@ a.active {
   padding: 7px;
   border-radius: 4px;
   transition: 0.2s all;
+  background-color: transparent;
+}
+
+.btn-template-red {
+  color: rgb(255, 39, 39);
+  background-color: transparent;
+  border: 1px solid rgb(255, 39, 39);
 }
 
 .btn-template:hover { 
@@ -103,6 +126,15 @@ a.active {
 .btn-template:active {
   background: rgb(150, 150, 150);
 } 
+
+.btn-template-red:hover { 
+  background: rgb(255, 39, 39);
+  color: white;
+}
+
+.btn-template-red:active {
+  background: rgb(255, 39, 39);
+}
 
 
 /* Catalog */
