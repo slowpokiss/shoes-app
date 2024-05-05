@@ -10,7 +10,8 @@ export default function Navigation() {
   const currCartCount = useSelector(
     (state: unknown) => state.cartSlice.cartCount
   );
-
+  const localCartCount = localStorage.getItem('cartCount')
+  
   return (
     <>
     <header className="container">
@@ -39,7 +40,7 @@ export default function Navigation() {
                 <div className="header-controls-pics">
                   <div data-id="search-expander" className="header-controls-pic header-controls-search"></div>
                   <Link to={'/cart'} className="header-controls-pic header-controls-cart">
-                    <div className="header-controls-cart-full">{currCartCount}</div>
+                    <div className="header-controls-cart-full">{localCartCount ? localCartCount: 0}</div>
                     <div className="header-controls-cart-menu"></div>
                   </Link>
                 </div>

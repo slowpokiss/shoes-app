@@ -4,7 +4,7 @@ import Loader from "../components/Loader";
 import { singleCardInterface } from "../interface/interface";
 import "../../css/SingleCard.css";
 import { useState } from "react";
-import { updateCart } from "../redux-toolkit/cartSlice";
+import { addToCart } from "../redux-toolkit/cartSlice";
 import { useDispatch } from "react-redux";
 
 async function getSingleCard(id: number) {
@@ -18,9 +18,6 @@ export const oneCardLoader = async ({ params }: any) => {
   return { oneCard };
 };
 
-
-
-
 const OneCardConstructor = () => {
   const dispatch = useDispatch();
   const oneCard: singleCardInterface = useAsyncValue();
@@ -32,11 +29,11 @@ const OneCardConstructor = () => {
 
   const onAddToCart = (ev: FormEvent) => {
     ev.preventDefault();
-    const price = oneCard.price
-    const name = oneCard.title
-    dispatch(updateCart({name, price, count, size}))
+    const price = oneCard.price;
+    const name = oneCard.title;
+    const id = oneCard.id;
+    dispatch(addToCart({ name, price, count, size, id }));
   };
-
 
   return (
     <>
@@ -88,7 +85,7 @@ const OneCardConstructor = () => {
                         type="checkbox"
                         className={"cart-checkbox"}
                         key={oneCard.id}
-                        onClick={() => setSize(el === size ? "": el)}
+                        onClick={() => setSize(el === size ? "" : el)}
                         required
                       />
                       <span className="checkbox-custom"></span>
