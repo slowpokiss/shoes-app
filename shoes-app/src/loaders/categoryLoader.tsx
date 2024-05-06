@@ -1,7 +1,7 @@
 import { useDispatch, useSelector,  } from "react-redux";
 import { useAsyncValue } from "react-router-dom";
 import { categoryInterface } from "../interface/interface";
-import { setCategory } from "../redux-toolkit/categorySlice";
+import { setCategory } from "../redux-toolkit/mainSlice";
 
 export async function getCategoryItems() {
   const response = await fetch("http://localhost:7070/api/categories");
@@ -10,7 +10,7 @@ export async function getCategoryItems() {
 
 export const CategoryConstructor = () => {
   const dispatch = useDispatch();
-  const category = useSelector((state: unknown) => state.category.currCategory);
+  const category = useSelector((state: unknown) => state.main.currCategory);
   const categoryItems = useAsyncValue();
 
   const setCategoryCB = (settingCategory: number) => {

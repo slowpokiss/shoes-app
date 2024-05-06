@@ -26,6 +26,8 @@
   width: 100%;
   display: flex;
   flex-direction: row;
+  position: relative;
+  overflow-x: hidden;
 }
 
 .text-center {

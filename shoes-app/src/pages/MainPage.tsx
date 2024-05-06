@@ -60,7 +60,7 @@ export default function MainPage() {
   
   const { sales, catalog, category } = useLoaderData();
   const currCategory = useSelector(
-    (state: unknown) => state.category.currCategory
+    (state: unknown) => state.main.currCategory
   );
 
   return (
