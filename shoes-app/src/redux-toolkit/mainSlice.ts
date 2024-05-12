@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface initialStateInterface {
-  currCategory: number;
-  searchState: boolean
-}
-
+  currCategory: number | string;
+  searchState: boolean;
+};
 
 const mainSlice = createSlice({
   name: "categorySlice",

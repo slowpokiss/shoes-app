@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { deleteItem, updateState } from "../redux-toolkit/cartSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+
+// http://localhost:7070/api/order.
 
 interface cartItem {
   name: string;
@@ -109,6 +110,7 @@ export default function Cart() {
                     className="form-input form-control"
                     id="phone"
                     placeholder="Ваш телефон"
+                    required
                   />
                 </div>
                 <div className="form-group">
@@ -117,6 +119,7 @@ export default function Cart() {
                     className="form-input form-control"
                     id="address"
                     placeholder="Адрес доставки"
+                    required
                   />
                 </div>
                 <div className="form-group form-check">
@@ -136,7 +139,6 @@ export default function Cart() {
                   value={"Оформить"}
                   id=""
                 />
-                {/* <button type="submit" className="btn-template">Оформить</button> */}
               </form>
             </div>
           </section>

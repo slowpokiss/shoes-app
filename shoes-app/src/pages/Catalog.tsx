@@ -1,16 +1,27 @@
-import "../../css/MainPage.css";
 import { useLoaderData, Await } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Suspense } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Suspense, FormEvent, useRef } from "react";
 import Loader from "../components/Loader";
 import { CategoryConstructor } from "../loaders/categoryLoader";
 import { ItemsConstructor } from "../loaders/itemsLoader";
+import { setCategory } from "../redux-toolkit/mainSlice";
+import "../../css/MainPage.css";
 
 export default function Catalog() {
+  const dispatch = useDispatch();
   const { catalog, category } = useLoaderData();
-  const currCategory = useSelector(
-    (state: unknown) => state.main.currCategory
-  );
+  const currCategory = useSelector((state: unknown) => state.main.currCategory);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  if (inputRef.current && typeof currCategory === 'string') {
+    inputRef.current.value = String(currCategory);
+  }
+
+  const onSubmit = (ev: FormEvent) => {
+    ev.preventDefault();
+    const settingCategory = ev.target.mainForm.value;
+    dispatch(setCategory({ settingCategory }));
+  };
 
   return (
     <>
@@ -27,8 +38,16 @@ export default function Catalog() {
             </div>
             <section className="catalog">
               <h2 className="text-center">Каталог</h2>
-              <form className="catalog-search-form form-inline">
-                <input className="form-control" placeholder="Поиск" />
+              <form
+                className="catalog-search-form form-inline"
+                onSubmit={onSubmit}
+              >
+                <input
+                  className="form-control"
+                  name="mainForm"
+                  placeholder="Поиск"
+                  ref={inputRef}
+                />
               </form>
               <ul className="catalog-categories nav justify-content-center">
                 <Suspense fallback={<Loader />}>
@@ -49,16 +68,6 @@ export default function Catalog() {
           </div>
         </div>
       </main>
-
-      {/* <script>
-      // TODO: replace it with React!
-      const searchEl = document.querySelector('[data-id=search-expander]');
-      const searchFormEl = document.querySelector('[data-id=search-form]');
-      searchEl.addEventListener('click', () => {
-          searchFormEl.classNameList.toggle('invisible');
-          searchFormEl.querySelector('input').focus();
-      });
-    </script> */}
     </>
   );
 }
