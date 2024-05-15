@@ -1,10 +1,16 @@
 import "./../../css/Cart.css";
 import { Link } from "react-router-dom";
-import { deleteItem, updateState } from "../redux-toolkit/cartSlice";
+import { deleteItem } from "../redux-toolkit/cartSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-
-// http://localhost:7070/api/order.
+import OrderForm from "../components/OrderForm";
+import Popup from "../components/Popup";
+import { Await } from "react-router-dom";
+import { Suspense } from "react";
+import Loader from "../components/Loader";
+import { getFormData } from "../components/OrderForm";
+import { apiOrder } from "../components/OrderForm";
+import { useNavigation } from "react-router-dom";
 
 interface cartItem {
   name: string;
@@ -14,10 +20,12 @@ interface cartItem {
   id: number;
 }
 
+
 export default function Cart() {
   const dispatch = useDispatch();
   const cart = useSelector((state: unknown) => state.cartSlice.cart);
   let totalCount = useSelector((state: unknown) => state.cartSlice.totalPrice);
+  const nav = useNavigation()
 
   totalCount = String(totalCount).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ");
   function ActualCart() {
@@ -103,43 +111,8 @@ export default function Cart() {
           <section className="order">
             <h2 className="text-center">Оформить заказ</h2>
             <div className="order-body">
-              <form className="order-form">
-                <div className="form-group">
-                  <label htmlFor="phone">Телефон</label>
-                  <input
-                    className="form-input form-control"
-                    id="phone"
-                    placeholder="Ваш телефон"
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="address">Адрес доставки</label>
-                  <input
-                    className="form-input form-control"
-                    id="address"
-                    placeholder="Адрес доставки"
-                    required
-                  />
-                </div>
-                <div className="form-group form-check">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="agreement"
-                    required
-                  />
-                  <label className="form-check-label" htmlFor="agreement">
-                    Согласен с правилами доставки
-                  </label>
-                </div>
-                <input
-                  className="btn-template"
-                  type="submit"
-                  value={"Оформить"}
-                  id=""
-                />
-              </form>
+                <Popup />
+                <OrderForm submitting={nav.state === 'submitting'} />
             </div>
           </section>
         </div>

@@ -4,6 +4,7 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const cors = require('koa2-cors');
 const koaBody = require('koa-body');
+const { log } = require('console');
 
 const categories = JSON.parse(fs.readFileSync('./data/categories.json'));
 const items = JSON.parse(fs.readFileSync('./data/products.json'));

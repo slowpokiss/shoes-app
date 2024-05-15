@@ -44,7 +44,7 @@ export const postLoader = async () => {
 };
 
 const loadMore = async (id: number) => {
-  console.log(id);
+  //console.log(id);
 
   let path;
   id === 10

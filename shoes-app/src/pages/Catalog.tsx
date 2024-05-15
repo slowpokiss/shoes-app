@@ -13,7 +13,7 @@ export default function Catalog() {
   const currCategory = useSelector((state: unknown) => state.main.currCategory);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  if (inputRef.current && typeof currCategory === 'string') {
+  if (inputRef.current && typeof currCategory === "string") {
     inputRef.current.value = String(currCategory);
   }
 
