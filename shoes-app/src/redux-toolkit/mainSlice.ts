@@ -1,10 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Popup from "../components/Popup";
 
 interface initialStateInterface {
   currCategory: number | string;
   searchState: boolean;
-  popupState: boolean;
 }
 
 const mainSlice = createSlice({
@@ -12,7 +10,6 @@ const mainSlice = createSlice({
   initialState: {
     currCategory: 10,
     searchState: false,
-    popupState: false,
   } satisfies initialStateInterface as initialStateInterface,
   reducers: {
     setCategory(state, action) {
@@ -20,9 +17,6 @@ const mainSlice = createSlice({
     },
     setSearchState(state) {
       state.searchState = !state.searchState;
-    },
-    setPopupState(state) {
-      state.popupState = !state.popupState;
     },
   },
 });

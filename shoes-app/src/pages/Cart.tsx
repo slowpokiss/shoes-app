@@ -4,12 +4,6 @@ import { deleteItem } from "../redux-toolkit/cartSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import OrderForm from "../components/OrderForm";
-import Popup from "../components/Popup";
-import { Await } from "react-router-dom";
-import { Suspense } from "react";
-import Loader from "../components/Loader";
-import { getFormData } from "../components/OrderForm";
-import { apiOrder } from "../components/OrderForm";
 import { useNavigation } from "react-router-dom";
 
 interface cartItem {
@@ -20,12 +14,11 @@ interface cartItem {
   id: number;
 }
 
-
 export default function Cart() {
   const dispatch = useDispatch();
   const cart = useSelector((state: unknown) => state.cartSlice.cart);
   let totalCount = useSelector((state: unknown) => state.cartSlice.totalPrice);
-  const nav = useNavigation()
+  const nav = useNavigation();
 
   totalCount = String(totalCount).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ");
   function ActualCart() {
@@ -111,8 +104,7 @@ export default function Cart() {
           <section className="order">
             <h2 className="text-center">Оформить заказ</h2>
             <div className="order-body">
-                <Popup />
-                <OrderForm submitting={nav.state === 'submitting'} />
+              <OrderForm submitting={nav.state === "submitting"} />
             </div>
           </section>
         </div>

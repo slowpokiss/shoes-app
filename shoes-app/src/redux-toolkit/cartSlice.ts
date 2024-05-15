@@ -54,16 +54,6 @@ const cartSlice = createSlice({
       localStorage.removeItem("cartCount");
       localStorage.removeItem("totalPrice");
     },
-    updateState(state) {
-      const localCart = localStorage.getItem("cart");
-      const localCartCount = localStorage.getItem("cartCount");
-      const localTotalPrice = localStorage.getItem("totalPrice");
-      if (localCart && localCartCount && localTotalPrice) {
-        state.cart = JSON.parse(localCart);
-        state.cartCount = parseInt(localCartCount);
-        state.totalPrice = parseInt(localTotalPrice);
-      }
-    },
     deleteItem(state, action) {
       state.cart = state.cart.filter((el) => el.id !== action.payload.id);
       state.cartCount = state.cart.length;
@@ -79,6 +69,5 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, deleteItem, clearCart, updateState } =
-  cartSlice.actions;
+export const { addToCart, deleteItem, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;

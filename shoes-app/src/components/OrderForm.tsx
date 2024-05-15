@@ -1,18 +1,28 @@
-import { useSelector } from "react-redux";
-import { Form, redirect, useNavigate } from "react-router-dom";
+import { Form, useActionData } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import CartPopup from "./CartPopup";
 import Loader from "./Loader";
+import { clearCart } from "../redux-toolkit/cartSlice";
+import { useEffect, useRef, FormEvent } from "react";
 
 interface props {
   submitting: boolean;
 }
 
 export default function OrderForm({submitting}: props) {
+  const act = useActionData()
   const dispatch = useDispatch()
-  
+
+  useEffect(() => {
+    if (act) {
+      dispatch(clearCart());
+    }
+  }, [act, dispatch]);
+
   return (
     <>
     {submitting ? <Loader /> : null }
+    <CartPopup formStatus={act} />
     <Form action='/cart' method="POST" className="order-form">
       <div className="form-group">
         <label htmlFor="phone">Телефон</label>
@@ -60,7 +70,7 @@ const apiOrder = async (data: any) => {
     });
 
     if (req.ok || req.status === 204) {
-      alert('Заказ успешно оформлен!');
+      return true
     } else {
       throw new Error('Что-то пошло не так');
     }
@@ -69,7 +79,12 @@ const apiOrder = async (data: any) => {
   }
 }
 
+
 export const getFormData = async ({request}: any) => {
+  if (!JSON.parse(localStorage.getItem("cart"))) {
+    return null
+  }
+
   const formData = await request.formData()
   const data = {
     owner: {
@@ -79,6 +94,6 @@ export const getFormData = async ({request}: any) => {
     items: JSON.parse(localStorage.getItem("cart"))
   }
 
-  const response = apiOrder(data)
-  return response 
+  const response = await apiOrder(data)
+  return true
 }
