@@ -16,20 +16,21 @@ export default function CartPopup({ formStatus }: props) {
     }
   }, [formStatus]);
 
-
   return (
     <>
       <div className={`popup ${popupState ? "close" : ""}`}>
         <div className="popup__body">
           <div className="popup__text">
             <span>
-              {formStatus === true ? 'Заказ успешно оформлен' :'Что-то пошло не так...'}
+              {formStatus === true
+                ? "Заказ успешно оформлен"
+                : "Что-то пошло не так..."}
             </span>
           </div>
           <span
             className="popup__btn"
             onClick={() => {
-              setPopupState(!popupState);
+              setPopupState(true);
             }}
           >
             &#10006;
