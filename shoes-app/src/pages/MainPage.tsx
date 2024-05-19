@@ -5,8 +5,12 @@ import { Suspense } from "react";
 import Loader from "../components/Loader";
 import Card from "../components/Card";
 import { cardInterface } from "../interface/interface";
-import { getCategoryItems, CategoryConstructor } from "../loaders/categoryLoader";
+import {
+  getCategoryItems,
+  CategoryConstructor,
+} from "../loaders/categoryLoader";
 import { ItemsConstructor, getItems } from "../loaders/itemsLoader";
+import LoadMore from "../components/LoadMore";
 
 async function getTopSales() {
   const response = await fetch("http://localhost:7070/api/top-sales");
@@ -35,7 +39,6 @@ const SalesConstructor = () => {
   );
 };
 
-
 export const postLoader = async () => {
   let sales = getTopSales();
   let catalog = getItems(10, 6);
@@ -43,14 +46,9 @@ export const postLoader = async () => {
   return { sales, catalog, category };
 };
 
-
 export default function MainPage() {
-  //const [loading, setLoading] = useState()
-  
   const { sales, catalog, category } = useLoaderData();
-  const currCategory = useSelector(
-    (state: unknown) => state.main.currCategory
-  );
+  const currCategory = useSelector((state: unknown) => state.main.currCategory);
 
   return (
     <>
@@ -87,7 +85,7 @@ export default function MainPage() {
                   <ItemsConstructor path={currCategory} />
                 </Await>
               </Suspense>
-              <div className="btn-loadMore btn-template"> Загрузить ещё</div>
+              <LoadMore currCategory={currCategory} />
             </section>
           </div>
         </div>

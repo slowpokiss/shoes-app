@@ -10,7 +10,7 @@ import "../../css/MainPage.css";
 
 export default function Catalog() {
   const dispatch = useDispatch();
-  const { catalog, category } = useLoaderData()
+  const { catalog, category } = useLoaderData();
   const currCategory = useSelector((state: unknown) => state.main.currCategory);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -63,7 +63,7 @@ export default function Catalog() {
                     <ItemsConstructor path={currCategory} />
                   </Await>
                 </Suspense>
-                <LoadMore  currCategory={currCategory} />
+                <LoadMore currCategory={currCategory} />
               </div>
             </section>
           </div>

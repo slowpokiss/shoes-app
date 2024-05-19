@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { cardInterface } from "../interface/interface";
 import Card from "../components/Card";
-import { setOffset, updateCurrOffset, updateCurrItems} from "../redux-toolkit/mainSlice";
+import { setOffset, updateCurrOffset } from "../redux-toolkit/mainSlice";
 import { useDispatch } from "react-redux";
 
 interface pathInterface {
   path: {
-    id: number | string
+    id: number | string;
   };
-};
+}
 
 export async function getItems(id: number | string) {
   let path = `http://localhost:7070/api/items`;
@@ -23,18 +23,17 @@ export async function getItems(id: number | string) {
   return response;
 }
 
-export const ItemsConstructor = ({path}: pathInterface) => {
+export const ItemsConstructor = ({ path }: pathInterface) => {
   const [items, setItems] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchData() {
       const data = await getItems(path.id);
-      const settingOffset = data.length
-      const offset = data.length
-      dispatch(setOffset({ settingOffset }))
-      dispatch(updateCurrOffset({ offset }))
-      //dispatch(updateCurrItems({}))
+      const settingOffset = data.length;
+      const offset = data.length;
+      dispatch(setOffset({ settingOffset }));
+      dispatch(updateCurrOffset({ offset }));
       setItems(data);
     }
     fetchData();

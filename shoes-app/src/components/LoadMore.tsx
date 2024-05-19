@@ -2,8 +2,13 @@ import Loader from "./Loader";
 import { useEffect, useState } from "react";
 import Card from "./Card";
 import { cardInterface } from "../interface/interface";
-import { useDispatch, useSelector} from "react-redux";
-import { setOffset, updateCurrOffset, updateCurrItems, clearCurrItems } from "../redux-toolkit/mainSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setOffset,
+  updateCurrOffset,
+  updateCurrItems,
+  clearCurrItems,
+} from "../redux-toolkit/mainSlice";
 
 interface props {
   currCategory: {
@@ -15,12 +20,12 @@ interface props {
 export default function LoadMore({ currCategory }: props) {
   const dispatch = useDispatch();
   const [loadState, setLoadState] = useState(false);
-
-  const [items, setItems] = useState([]);
-
-  const currOffset = useSelector((state: unknown) => state.main.currCategory.currOffset);
-  const currItems = useSelector((state: unknown) => state.main.currCategory.currItems);
-  
+  const currOffset = useSelector(
+    (state: unknown) => state.main.currCategory.currOffset
+  );
+  const currItems = useSelector(
+    (state: unknown) => state.main.currCategory.currItems
+  );
 
   const loadMore = async () => {
     setLoadState(true);
@@ -35,24 +40,18 @@ export default function LoadMore({ currCategory }: props) {
 
       const response = await fetch(path);
       const newItems = await response.json();
-      const offset = newItems.length
+      const offset = newItems.length;
 
       if (newItems.length < 6) {
         setLoadState(false);
         dispatch(updateCurrOffset({ offset }));
-        //setCurrOffset(newItems.length);
-        return items;
+        return;
       }
 
       const settingOffset = newItems.length + currCategory.offset;
       dispatch(setOffset({ settingOffset }));
-      //const items = ...newItems
-      dispatch(updateCurrItems({ newItems }))
-
+      dispatch(updateCurrItems({ newItems }));
       setLoadState(false);
-      setItems(newItems);
-
-      return newItems;
     } catch (error) {
       console.error("Error fetching more items:", error);
       setLoadState(false);
@@ -60,9 +59,7 @@ export default function LoadMore({ currCategory }: props) {
   };
 
   useEffect(() => {
-    setItems([]);
     dispatch(clearCurrItems());
-    //setCurrOffset(currCategory.offset);
   }, [currCategory.id]);
 
   return (
