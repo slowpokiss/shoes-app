@@ -1,19 +1,42 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { cardInterface } from "../interface/interface";
 
 interface initialStateInterface {
-  currCategory: number | string;
+  currCategory: {
+    offset: number;
+    currOffset: number;
+    id: number | string;
+    currItems: cardInterface[];
+  };
   searchState: boolean;
 }
 
 const mainSlice = createSlice({
   name: "categorySlice",
   initialState: {
-    currCategory: 10,
+    currCategory: {
+      offset: 6,
+      currOffset: 0,
+      id: 10,
+      currItems: [],
+    },
     searchState: false,
   } satisfies initialStateInterface as initialStateInterface,
   reducers: {
     setCategory(state, action) {
-      state.currCategory = action.payload.settingCategory;
+      state.currCategory.id = action.payload.settingCategory;
+    },
+    setOffset(state, action) {
+      state.currCategory.offset = action.payload.settingOffset;
+    },
+    updateCurrOffset(state, action) {
+      state.currCategory.currOffset = action.payload.offset;
+    },
+    updateCurrItems(state, action) {
+      state.currCategory.currItems.push(...action.payload.newItems);
+    },
+    clearCurrItems(state) {
+      state.currCategory.currItems = [];
     },
     setSearchState(state) {
       state.searchState = !state.searchState;
@@ -21,5 +44,12 @@ const mainSlice = createSlice({
   },
 });
 
-export const { setCategory, setSearchState } = mainSlice.actions;
+export const {
+  setCategory,
+  setSearchState,
+  setOffset,
+  updateCurrOffset,
+  updateCurrItems,
+  clearCurrItems,
+} = mainSlice.actions;
 export default mainSlice.reducer;

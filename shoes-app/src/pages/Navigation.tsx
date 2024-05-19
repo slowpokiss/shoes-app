@@ -14,12 +14,8 @@ export default function Navigation() {
   const currCartCount = useSelector(
     (state: unknown) => state.cartSlice.cartCount
   );
-  const searchState = useSelector(
-    (state: unknown) => state.main.searchState
-  );
+  const searchState = useSelector((state: unknown) => state.main.searchState);
   const localCartCount = localStorage.getItem("cartCount");
-
-
 
   return (
     <>
@@ -58,13 +54,19 @@ export default function Navigation() {
                     <div
                       data-id="search-expander"
                       className="header-controls-pic header-controls-search"
-                      onClick={() => {dispatch(setSearchState())}}
+                      onClick={() => {
+                        dispatch(setSearchState());
+                      }}
                     ></div>
                     <Link
                       to={"/cart"}
                       className="header-controls-pic header-controls-cart"
                     >
-                      <div className="header-controls-cart-full">
+                      <div
+                        className={`header-controls-cart-full ${
+                          localCartCount > 0 ? "" : "btn-hide"
+                        }`}
+                      >
                         {localCartCount ? localCartCount : 0}
                       </div>
                       <div className="header-controls-cart-menu"></div>

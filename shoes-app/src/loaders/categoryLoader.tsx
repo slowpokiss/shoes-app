@@ -10,8 +10,9 @@ export async function getCategoryItems() {
 
 export const CategoryConstructor = () => {
   const dispatch = useDispatch();
-  const category = useSelector((state: unknown) => state.main.currCategory);
+  const currCategoryId = useSelector((state: unknown) => state.main.currCategory.id);
   const categoryItems = useAsyncValue();
+  
 
   const setCategoryCB = (settingCategory: number) => {
     dispatch(setCategory({ settingCategory }));
@@ -21,7 +22,7 @@ export const CategoryConstructor = () => {
     <ul className="catalog-params-list">
       <li
         className={
-          category === 10
+          currCategoryId === 10
             ? "catalog-param catalog-param-active"
             : "catalog-param"
         }
@@ -35,7 +36,7 @@ export const CategoryConstructor = () => {
         return (
           <li
             className={
-              category === el.id
+              currCategoryId === el.id
                 ? "catalog-param catalog-param-active"
                 : "catalog-param"
             }

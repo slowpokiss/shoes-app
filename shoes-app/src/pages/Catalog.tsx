@@ -5,16 +5,17 @@ import Loader from "../components/Loader";
 import { CategoryConstructor } from "../loaders/categoryLoader";
 import { ItemsConstructor } from "../loaders/itemsLoader";
 import { setCategory } from "../redux-toolkit/mainSlice";
+import LoadMore from "../components/LoadMore";
 import "../../css/MainPage.css";
 
 export default function Catalog() {
   const dispatch = useDispatch();
-  const { catalog, category } = useLoaderData();
+  const { catalog, category } = useLoaderData()
   const currCategory = useSelector((state: unknown) => state.main.currCategory);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  if (inputRef.current && typeof currCategory === "string") {
-    inputRef.current.value = String(currCategory);
+  if (inputRef.current && typeof currCategory.id === "string") {
+    inputRef.current.value = String(currCategory.id);
   }
 
   const onSubmit = (ev: FormEvent) => {
@@ -62,8 +63,8 @@ export default function Catalog() {
                     <ItemsConstructor path={currCategory} />
                   </Await>
                 </Suspense>
+                <LoadMore  currCategory={currCategory} />
               </div>
-              <div className="btn-loadMore btn-template">Загрузить ещё</div>
             </section>
           </div>
         </div>

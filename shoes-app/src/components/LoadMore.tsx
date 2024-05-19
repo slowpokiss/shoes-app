@@ -1,0 +1,97 @@
+import Loader from "./Loader";
+import { useEffect, useState } from "react";
+import Card from "./Card";
+import { cardInterface } from "../interface/interface";
+import { useDispatch, useSelector} from "react-redux";
+import { setOffset, updateCurrOffset, updateCurrItems, clearCurrItems } from "../redux-toolkit/mainSlice";
+
+interface props {
+  currCategory: {
+    offset: number;
+    id: number | string;
+  };
+}
+
+export default function LoadMore({ currCategory }: props) {
+  const dispatch = useDispatch();
+  const [loadState, setLoadState] = useState(false);
+
+  const [items, setItems] = useState([]);
+
+  const currOffset = useSelector((state: unknown) => state.main.currCategory.currOffset);
+  const currItems = useSelector((state: unknown) => state.main.currCategory.currItems);
+  
+
+  const loadMore = async () => {
+    setLoadState(true);
+    try {
+      let path = `http://localhost:7070/api/items?offset=${currCategory.offset}`;
+      if (currCategory.id !== 10) {
+        path = `http://localhost:7070/api/items?categoryId=${currCategory.id}&offset=${currCategory.offset}`;
+      }
+      if (typeof currCategory.id === "string") {
+        //path = `http://localhost:7070/api/items?categoryId=${currId.id}&offset=6`;
+      }
+
+      const response = await fetch(path);
+      const newItems = await response.json();
+      const offset = newItems.length
+
+      if (newItems.length < 6) {
+        setLoadState(false);
+        dispatch(updateCurrOffset({ offset }));
+        //setCurrOffset(newItems.length);
+        return items;
+      }
+
+      const settingOffset = newItems.length + currCategory.offset;
+      dispatch(setOffset({ settingOffset }));
+      //const items = ...newItems
+      dispatch(updateCurrItems({ newItems }))
+
+      setLoadState(false);
+      setItems(newItems);
+
+      return newItems;
+    } catch (error) {
+      console.error("Error fetching more items:", error);
+      setLoadState(false);
+    }
+  };
+
+  useEffect(() => {
+    setItems([]);
+    dispatch(clearCurrItems());
+    //setCurrOffset(currCategory.offset);
+  }, [currCategory.id]);
+
+  return (
+    <>
+      {currItems ? (
+        <div className="catalog-items">
+          {currItems.map((el: cardInterface) => {
+            return (
+              <Card
+                key={el.id}
+                id={el.id}
+                images={el.images}
+                title={el.title}
+                price={el.price}
+              />
+            );
+          })}
+        </div>
+      ) : null}
+      {loadState ? <Loader /> : null}
+      <button
+        onClick={loadMore}
+        disabled={loadState}
+        className={`btn-loadMore btn-template ${
+          currCategory.offset % 6 > 0 || currOffset < 6 ? "btn-hide" : ""
+        }`}
+      >
+        Загрузить ещё
+      </button>
+    </>
+  );
+}

@@ -100,8 +100,6 @@ a.active {
   height: auto;
 }
 
-
-
 .btn-template {
   width: fit-content;
   cursor: pointer;
@@ -120,7 +118,7 @@ a.active {
   border: 1px solid rgb(255, 39, 39);
 }
 
-.btn-template:hover { 
+.btn-template:hover, .btn-template:disabled { 
   background: rgb(150, 150, 150);
   color: white;
 }
@@ -138,6 +136,9 @@ a.active {
   background: rgb(255, 39, 39);
 }
 
+button.btn-hide {
+  display: none;
+}
 
 /* Catalog */
 .catalog-params {
@@ -169,6 +170,8 @@ a.active {
 
 .btn-loadMore {
   margin: 0 auto;
+  display: block;
+  font-size: 16px;
 }
 
 .catalog-param-active {

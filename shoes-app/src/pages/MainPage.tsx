@@ -38,22 +38,11 @@ const SalesConstructor = () => {
 
 export const postLoader = async () => {
   let sales = getTopSales();
-  let catalog = getItems(10);
+  let catalog = getItems(10, 6);
   let category = getCategoryItems();
   return { sales, catalog, category };
 };
 
-const loadMore = async (id: number) => {
-  //console.log(id);
-
-  let path;
-  id === 10
-    ? (path = `http://localhost:7070/api/items?offset=6`)
-    : (path = ` http://localhost:7070/api/items?categoryId=${id}&offset=6`);
-
-  const response = await fetch(path);
-  return await response.json(); 
-};
 
 export default function MainPage() {
   //const [loading, setLoading] = useState()
@@ -98,14 +87,7 @@ export default function MainPage() {
                   <ItemsConstructor path={currCategory} />
                 </Await>
               </Suspense>
-
-              
-              <div
-                className="btn-loadMore btn-template"
-                onClick={() => loadMore(currCategory)}
-              >
-                Загрузить ещё
-              </div>
+              <div className="btn-loadMore btn-template"> Загрузить ещё</div>
             </section>
           </div>
         </div>

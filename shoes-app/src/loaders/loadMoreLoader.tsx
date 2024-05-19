@@ -1,44 +1,56 @@
 import { useEffect, useState } from "react";
 import { cardInterface } from "../interface/interface";
+import { setOffset } from "../redux-toolkit/mainSlice";
 import Card from "../components/Card";
-import { setOffset, updateCurrOffset, updateCurrItems} from "../redux-toolkit/mainSlice";
 import { useDispatch } from "react-redux";
+
+// http://localhost:7070/api/items?categoryId=X&offset=6
+// http://localhost:7070/api/items?offset=6
 
 interface pathInterface {
   path: {
+    offset: number;
     id: number | string
   };
 };
 
-export async function getItems(id: number | string) {
+export async function getMoreItems(id: number | string, offset: number) {
+  //console.log(id, offset);
+  
   let path = `http://localhost:7070/api/items`;
   if (id !== 10) {
-    path = `http://localhost:7070/api/items?categoryId=${id}`;
+    if (offset <= 6) {
+      path = `http://localhost:7070/api/items?categoryId=${id}`;
+    } else {
+      path = `http://localhost:7070/api/items?categoryId=${id}&offset=6`
+    }
   }
   if (typeof id === "string") {
     path = `http://localhost:7070/api/items?q=${id}`;
   }
+
   const data = await fetch(path);
+
   const response = await data.json();
   return response;
 }
 
-export const ItemsConstructor = ({path}: pathInterface) => {
+export const LoadMoreConstructor = ({path}: pathInterface) => {
   const [items, setItems] = useState([]);
   const dispatch = useDispatch();
-
   useEffect(() => {
     async function fetchData() {
-      const data = await getItems(path.id);
+      console.log(path.offset);
+      
+      const data = await getMoreItems(path.id, path.offset);
+      //console.log(data.length);
+      
       const settingOffset = data.length
-      const offset = data.length
       dispatch(setOffset({ settingOffset }))
-      dispatch(updateCurrOffset({ offset }))
-      //dispatch(updateCurrItems({}))
       setItems(data);
     }
     fetchData();
-  }, [path.id]);
+  }, [path]);
 
   return (
     <>
