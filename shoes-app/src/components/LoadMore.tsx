@@ -35,7 +35,7 @@ export default function LoadMore({ currCategory }: props) {
         path = `http://localhost:7070/api/items?categoryId=${currCategory.id}&offset=${currCategory.offset}`;
       }
       if (typeof currCategory.id === "string") {
-        //path = `http://localhost:7070/api/items?categoryId=${currId.id}&offset=6`;
+        path = `http://localhost:7070/api/items?q=${currCategory.id}&offset=${currCategory.offset}`;
       }
 
       const response = await fetch(path);

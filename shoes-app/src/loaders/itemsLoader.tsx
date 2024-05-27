@@ -3,6 +3,7 @@ import { cardInterface } from "../interface/interface";
 import Card from "../components/Card";
 import { setOffset, updateCurrOffset } from "../redux-toolkit/mainSlice";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 
 interface pathInterface {
   path: {
@@ -18,9 +19,18 @@ export async function getItems(id: number | string) {
   if (typeof id === "string") {
     path = `http://localhost:7070/api/items?q=${id}`;
   }
-  const data = await fetch(path);
-  const response = await data.json();
-  return response;
+  try {
+    const data = await fetch(path);
+    const response = await data.json();
+    return response;
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Не удалось загрузить товары",
+    });
+    return null;
+  }
 }
 
 export const ItemsConstructor = ({ path }: pathInterface) => {

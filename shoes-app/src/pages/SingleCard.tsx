@@ -6,21 +6,33 @@ import "../../css/SingleCard.css";
 import { useState } from "react";
 import { addToCart } from "../redux-toolkit/cartSlice";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 
 async function getSingleCard(id: number) {
-  const response = await fetch(`http://localhost:7070/api/items/${id}`);
-  return response.json();
+  try {
+    const response = await fetch(`http://localhost:7070/api/items/${id}`);
+    return response.json();
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Не удалось загрузить карточку товара",
+      footer: "Попробуйте перезагрузить страницу",
+    });
+    throw new Error(`Ошибка ${error}`);
+  }
 }
 
 export const oneCardLoader = async ({ params }: any) => {
   const id = params.id;
-  const oneCard = getSingleCard(id);
+  const oneCard = await getSingleCard(id);
   return { oneCard };
 };
 
 const OneCardConstructor = () => {
   const dispatch = useDispatch();
   const oneCard: singleCardInterface = useAsyncValue();
+
   let filteredSizes = oneCard.sizes
     .filter((item) => item.available)
     .map((size) => size.size);

@@ -83,14 +83,8 @@ const apiOrder = async (data: any) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-
-    if (req.ok || req.status === 204) {
-      return true;
-    } else {
-      throw new Error("Что-то пошло не так");
-    }
   } catch (error) {
-    throw error;
+    throw new Error(`Ошибка ${error}`)
   }
 };
 

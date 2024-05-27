@@ -1,5 +1,5 @@
 import "../../css/MainPage.css";
-import { useLoaderData, Await, useAsyncValue } from "react-router-dom";
+import { useLoaderData, Await, useAsyncValue, redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Suspense } from "react";
 import Loader from "../components/Loader";
@@ -11,10 +11,22 @@ import {
 } from "../loaders/categoryLoader";
 import { ItemsConstructor, getItems } from "../loaders/itemsLoader";
 import LoadMore from "../components/LoadMore";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+
 
 async function getTopSales() {
-  const response = await fetch("http://localhost:7070/api/top-sales");
-  return response.json();
+  try {
+    const response = await fetch("http://localhost:7070/api/top-sales");
+    return response.json();
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Не удалось загрузить хиты продаж",
+    });
+    console.log('error')
+  }
 }
 
 const SalesConstructor = () => {
