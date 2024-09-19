@@ -153,7 +153,7 @@ export default function SingleCard() {
           <div className="col">
             <div className="banner">
               <img
-                src="../shoes-app/img/banner.jpg"
+                src="../../shoes-app/img/banner.jpg"
                 className="img-fluid"
                 alt="К весне готовы!"
               />
