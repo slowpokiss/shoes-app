@@ -17,7 +17,7 @@ import { initialMainSliceInterface } from "../redux-toolkit/mainSlice";
 
 async function getTopSales() {
   try {
-    const response = await fetch("http://shoes-app-back.onrender.com/api/top-sales");
+    const response = await fetch("https://shoes-app-back.onrender.com/api/top-sales");
     return response.json();
   } catch (error) {
     Swal.fire({

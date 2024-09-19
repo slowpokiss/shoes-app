@@ -33,12 +33,12 @@ export default function LoadMore({ currCategory }: props) {
   const loadMore = async () => {
     setLoadState(true);
     try {
-      let path = `http://shoes-app-back.onrender.com/api/items?offset=${currCategory.offset}`;
+      let path = `https://shoes-app-back.onrender.com/api/items?offset=${currCategory.offset}`;
       if (currCategory.id !== 10) {
-        path = `http://shoes-app-back.onrender.com/api/items?categoryId=${currCategory.id}&offset=${currCategory.offset}`;
+        path = `https://shoes-app-back.onrender.com/api/items?categoryId=${currCategory.id}&offset=${currCategory.offset}`;
       }
       if (typeof currCategory.id === "string") {
-        path = `http://shoes-app-back.onrender.com/api/items?q=${currCategory.id}&offset=${currCategory.offset}`;
+        path = `https://shoes-app-back.onrender.com/api/items?q=${currCategory.id}&offset=${currCategory.offset}`;
       }
 
       const response = await fetch(path);

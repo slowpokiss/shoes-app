@@ -12,12 +12,12 @@ interface pathInterface {
 }
 
 export async function getItems(id: number | string) {
-  let path = `http://shoes-app-back.onrender.com/api/items`;
+  let path = `https://shoes-app-back.onrender.com/api/items`;
   if (id !== 10) {
-    path = `http://shoes-app-back.onrender.com/api/items?categoryId=${id}`;
+    path = `https://shoes-app-back.onrender.com/api/items?categoryId=${id}`;
   }
   if (typeof id === "string") {
-    path = `http://shoes-app-back.onrender.com/api/items?q=${id}`;
+    path = `https://shoes-app-back.onrender.com/api/items?q=${id}`;
   }
   try {
     const data = await fetch(path);

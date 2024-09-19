@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 
 export async function getCategoryItems() {
   try {
-    const response = await fetch("http://shoes-app-back.onrender.com/api/categories");
+    const response = await fetch("https://shoes-app-back.onrender.com/api/categories");
     return response.json();
   } catch (error) {
     Swal.fire({

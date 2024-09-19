@@ -78,7 +78,7 @@ export default function OrderForm({ submitting }: props) {
 
 const apiOrder = async (data: any) => {
   try {
-    await fetch("http://shoes-app-back.onrender.com/api/order", {
+    await fetch("https://shoes-app-back.onrender.com/api/order", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
