@@ -30,7 +30,7 @@ export default function OrderForm({ submitting }: props) {
     <>
       {submitting ? <Loader /> : null}
       <CartPopup formStatus={act} />
-      <Form action="/cart" method="POST" className="order-form">
+      <Form action="/shoes-app/cart" method="POST" className="order-form">
         <div className="form-group">
           <label htmlFor="phone">Телефон</label>
           <input
