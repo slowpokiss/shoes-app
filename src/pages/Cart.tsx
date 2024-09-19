@@ -52,7 +52,7 @@ export default function Cart() {
                 <tr key={el.id}>
                   <td scope="row">{ind + 1}</td>
                   <td>
-                    <Link to={`/catalog/${el.id}`}>{el.name}</Link>
+                    <Link to={`/shoes-app/catalog/${el.id}`}>{el.name}</Link>
                   </td>
                   <td>{el.size}</td>
                   <td>{el.count}</td>
