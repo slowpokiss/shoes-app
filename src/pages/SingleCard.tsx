@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 
 async function getSingleCard(id: number) {
   try {
-    const response = await fetch(`http://localhost:7070/api/items/${id}`);
+    const response = await fetch(`https://shoes-app-back.onrender.com/api/items/${id}`);
     return response.json();
   } catch (error) {
     Swal.fire({
